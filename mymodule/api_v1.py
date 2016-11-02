@@ -38,6 +38,5 @@ def crud_post():
 
 @blueprint.errorhandler(exceptions.BadRequestKeyError)
 def bad_request_key_error(e):
-    log.exception(e)
     message = 'missing \'%s\' parameter' % e.args[0]
     return flask.jsonify(error=message), e.code
