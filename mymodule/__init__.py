@@ -1,6 +1,6 @@
 import flask
 from werkzeug import exceptions, local
-from mymodule import api_v1
+from mymodule.blueprints import api_v1
 
 
 log = local.LocalProxy(lambda: flask.current_app.logger)
