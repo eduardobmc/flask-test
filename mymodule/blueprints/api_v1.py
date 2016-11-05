@@ -28,6 +28,13 @@ def crud_get():
     return flask.jsonify(method=flask.request.method)
 
 
+@blueprint.route('/config')
+def config():
+    app = flask.current_app
+    ns = app.config.get_namespace('MYMODULE_')
+    return flask.jsonify(ns)
+
+
 @blueprint.route('/crud', methods=['POST'])
 def crud_post():
     payload = flask.request.get_json()
