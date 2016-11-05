@@ -1,9 +1,10 @@
 import flask
-from werkzeug import exceptions, local
+from werkzeug import exceptions
+from mymodule import utils
 from mymodule.blueprints import api_v1
 
 
-log = local.LocalProxy(lambda: flask.current_app.logger)
+log = utils.get_app_logger()
 app = flask.Flask(__name__)
 app.register_blueprint(api_v1.blueprint)
 
