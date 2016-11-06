@@ -1,15 +1,14 @@
 import flask
+from flask import current_app as app
 from werkzeug import exceptions
-from mymodule import utils
 
 
-log = utils.get_logger(__name__)
 blueprint = flask.Blueprint('v1', __name__, url_prefix='/api/v1')
 
 
 @blueprint.route('/test')
 def index():
-    log.info('TEST')
+    app.logger.info('TEST %d', 1)
     return flask.jsonify(key='value')
 
 
@@ -31,7 +30,6 @@ def crud_get():
 
 @blueprint.route('/config')
 def config():
-    app = flask.current_app
     ns = app.config.get_namespace('MYMODULE_')
     return flask.jsonify(ns)
 
