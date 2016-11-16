@@ -2,7 +2,7 @@ import flask
 from flask import current_app as app
 from werkzeug import exceptions
 
-from mymodule.blueprints.api_v1 import upload
+from . import upload
 
 
 blueprint = flask.Blueprint('v1', __name__, url_prefix='/api/v1')
