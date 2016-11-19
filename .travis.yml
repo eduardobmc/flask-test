@@ -1,9 +1,11 @@
 language: python
-python: 3.5
+python:
+  - 2.7
+  - 3.5
 install:
   - pip install tox
-script: tox
-env:
-  - TOXENV=py27
-  - TOXENV=py34
-  - TOXENV=pep8
+  - pip install coveralls
+script:
+  - tox -e py$(echo $TRAVIS_PYTHON_VERSION | tr -d .)
+after_success:
+  - coveralls
