@@ -1,4 +1,4 @@
-import test_base
+from . import test_base
 
 
 class ErrorTest(test_base.TestBase):

@@ -1,7 +1,7 @@
 import os
 import hashlib
 import pytest
-import test_base
+from . import test_base
 
 
 class FakeFile:

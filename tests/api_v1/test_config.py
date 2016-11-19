@@ -1,5 +1,5 @@
 import mymodule
-import test_base
+from . import test_base
 
 
 class ConfigTest(test_base.TestBase):

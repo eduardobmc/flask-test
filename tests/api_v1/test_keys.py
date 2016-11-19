@@ -1,4 +1,4 @@
-import test_base
+from . import test_base
 
 
 class KeysTest(test_base.TestBase):
