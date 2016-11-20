@@ -1,6 +1,6 @@
 import flask
 from werkzeug import exceptions
-from mymodule.blueprints import api_v1
+from .blueprints import api_v1
 
 
 def create_app():
