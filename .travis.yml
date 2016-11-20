@@ -4,8 +4,9 @@ python:
   - 3.5
 install:
   - pip install tox
-  - pip install coveralls
 script:
   - tox -e py$(echo $TRAVIS_PYTHON_VERSION | tr -d .)
-after_success:
-  - coveralls
+addons:
+  code_climate:
+    repo_token:
+      secure: "lI0uZu2wf8aA7KGU3tqaHGyNaMKBzoyNxgqAY6oVhNTvmFxKUiG+qJrdoZA3QjrvAQ8X8gaeYh1WSDB98i3t5TdZPvc+j0/FIOTZXBdTPg6Ww257DpXVTdT9UdkHMotFHkhOrLxI0DjjkrqfBJ71np5FKkVz5TJvWqSkAVZFP40nPpP8hfkqxn8Umw7oe5OvhVkt9mvZhyOdqnscZApOPoNpD3xrE6qc64noZ9Ptp6hTF6Ib93iDkOcNdupWC4x0a6MNbog4X9mZJzCSmmFKcphYbcE9fI2Qc8/J+KGeBEq+NjjuZGkdmSUUqnYl8XEcLVhe1G8XtNxeL9rR9IPbDYPC6W3NokpHAtKEZ9J+q1aOAFgcdbrx/WFbrG+BLqQc5VTUfGoVp5zHP7GSwPb7E/ZSaXX19l00v42loEl2hTsJMr6tvxnvo+b26jsqdswWfDl19xTNiakh7I0f1Dpd2/CFsdezUI4kBo8qLRbMCnC97DaPaTdfw+tIKZN4sUCbQ1SP5Kg7aQSu0ewQW0OL+/JJGpWKE6/2KzIZyJ0rDH9QxYsRPLFUl4ZJhjeNzenYrkSILac3NsILT3ag9Gen3OPe+mPHwJE4QXFpjPWO+3Gen8gAv0RNrNbK/+KVOQ7k4J3mBjFROC76Lc0wbpTPfXS0y0X64sFoR/GpQA2MG40=" 
