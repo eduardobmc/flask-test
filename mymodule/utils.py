@@ -1,4 +1,5 @@
 import re
+import six
 
 
 CRLF = b'\r\n'
@@ -20,7 +21,11 @@ def read_headers(reader):
     headers = {
       k: v for k, v in directives(content_disposition)
     }
-    headers['content-type'] = raw_headers['content-type']
+    headers.update({
+      k.lower(): v
+      for k, v in six.iteritems(raw_headers)
+      if k.lower() != 'content-disposition'
+    })
     return headers
 
 
