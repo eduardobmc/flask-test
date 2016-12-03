@@ -1,6 +1,4 @@
-import os
 import hashlib
-import pytest
 from . import test_base
 
 
@@ -13,27 +11,34 @@ class FakeFile:
     def read(self, n):
         size = min(self.remaining, n)
         self.remaining -= size
-        buf = os.urandom(size)
+        buf = b'x' * size
         self.checksum.update(buf)
         return buf
 
 
 class UploadTest(test_base.TestBase):
-    def test_post(self):
-        files = [(FakeFile(1 << 20), 'test.file')]
-        self._test(files)
+    LARGE = 2 << 30   # 2 GB
+    MEDIUM = 1 << 20  # 1 MB
+    SMALL = 1 << 10   # 1 KB
 
-    @pytest.mark.slow
-    def test_large_post(self):
-        files = [(FakeFile(1 << 31), 'test.file')]
-        self._test(files)
+    def test_post(self):
+        files = [(FakeFile(self.MEDIUM), 'test.file')]
+        self._test('/api/v1/upload', files)
 
     def test_multiple_post(self):
-        files = [(FakeFile(1 << 20), 'test.%d' % i) for i in range(10)]
-        self._test(files)
+        files = [(FakeFile(self.MEDIUM), 'test.%d' % i) for i in range(10)]
+        self._test('/api/v1/upload', files)
 
-    def _test(self, files):
-        result = self.app.post('/api/v1/upload', data={'files': files})
+    def test_post2(self):
+        files = [(FakeFile(self.LARGE), 'test.file')]
+        self._test('/api/v1/upload2', files)
+
+    def test_small_post2(self):
+        files = [(FakeFile(self.SMALL), 'test.file')]
+        self._test('/api/v1/upload2', files)
+
+    def _test(self, url, files):
+        result = self.app.post(url, data={'files': files})
 
         self.assertOk(result)
         self.assertJsonContentType(result)

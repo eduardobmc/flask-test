@@ -7,6 +7,7 @@ from . import upload
 
 blueprint = flask.Blueprint('v1', __name__, url_prefix='/api/v1')
 blueprint.add_url_rule('/upload', view_func=upload.post, methods=['POST'])
+blueprint.add_url_rule('/upload2', view_func=upload.post2, methods=['POST'])
 
 
 @blueprint.route('/test')
