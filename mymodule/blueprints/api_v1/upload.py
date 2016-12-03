@@ -77,7 +77,7 @@ def get_io_stream(stream):
 
 
 def get_boundary(content_type):
-    r = re.compile(r'boundary="(?P<boundary>.*)"')
+    r = re.compile('boundary="?(?P<boundary>[^"]*)"?')
     m = r.search(content_type)
     boundary = '--' + m.group('boundary')
     return bytearray(boundary, 'ascii')
