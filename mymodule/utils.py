@@ -1,5 +1,5 @@
 import re
-import six
+from six import moves
 
 
 CRLF = b'\r\n'
@@ -11,21 +11,16 @@ def read_until(reader, delim):
 
 
 def read_headers(reader):
+    headers = {}
     found = read_until_part(reader)
-    lines = filter(bool, found.split(CRLF))
-    raw_headers = {
-      h[0].lower(): h[1]
-      for h in (line.decode('ascii').split(': ') for line in lines)
-    }
-    content_disposition = raw_headers['content-disposition']
-    headers = {
-      k: v for k, v in directives(content_disposition)
-    }
-    headers.update({
-      k.lower(): v
-      for k, v in six.iteritems(raw_headers)
-      if k.lower() != 'content-disposition'
-    })
+    for line in moves.filter(bool, found.split(CRLF)):
+        name, value = line.decode('ascii').split(': ')
+        name = name.lower()
+        if name == 'content-disposition':
+            for k, v in directives(value):
+                headers[k] = v
+        else:
+            headers[name] = value
     return headers
 
 
