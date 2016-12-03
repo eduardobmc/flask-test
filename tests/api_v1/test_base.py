@@ -1,12 +1,12 @@
 import json
 import unittest
-import mymodule
+from mymodule import wsgi
 
 
 class TestBase(unittest.TestCase):
     def setUp(self):
-        mymodule.app.testing = True
-        self.app = mymodule.app.test_client()
+        wsgi.app.testing = True
+        self.app = wsgi.app.test_client()
 
     def test_404(self):
         result = self.app.get('/api/v1/404')

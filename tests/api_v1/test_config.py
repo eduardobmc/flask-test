@@ -1,11 +1,11 @@
-import mymodule
+from mymodule import wsgi
 from . import test_base
 
 
 class ConfigTest(test_base.TestBase):
     def setUp(self):
         super(ConfigTest, self).setUp()
-        mymodule.app.config['MYMODULE_TEST'] = 'testing'
+        wsgi.app.config['MYMODULE_TEST'] = 'testing'
 
     def test_get(self):
         result = self._get()
