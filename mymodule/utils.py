@@ -1,5 +1,6 @@
-import re
+import six
 from six import moves
+from werkzeug import http
 
 
 CRLF = b'\r\n'
@@ -17,23 +18,21 @@ def read_headers(reader):
         name, value = line.decode('ascii').split(': ')
         name = name.lower()
         if name == 'content-disposition':
-            for k, v in directives(value):
+            for k, v in options(value):
                 headers[k] = v
         else:
             headers[name] = value
     return headers
 
 
-def directives(value):
-    r = re.compile(r';\s*([^=]+)="([^"]+)"')
-    for m in r.finditer(value):
-        yield m.group(1), m.group(2)
+def options(value):
+    _, options = http.parse_options_header(value)
+    return six.iteritems(options)
 
 
 def read_until_part(reader):
     delim = CRLF * 2
     data = read_until(reader, delim)
-    # reader.read(len(delim))
     return data
 
 
