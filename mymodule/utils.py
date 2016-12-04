@@ -33,7 +33,6 @@ def options(value):
 def read_until_part(reader):
     delim = CRLF * 2
     data = read_until(reader, delim)
-    # reader.read(len(delim))
     return data
 
 
