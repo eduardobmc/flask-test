@@ -1,8 +1,8 @@
 import io
-import re
 import hashlib
 import flask
 from flask import current_app as app
+from werkzeug import http
 
 from ... import utils
 
@@ -77,7 +77,5 @@ def get_io_stream(stream):
 
 
 def get_boundary(content_type):
-    r = re.compile('boundary="?(?P<boundary>[^"]*)"?')
-    m = r.search(content_type)
-    boundary = '--' + m.group('boundary')
-    return bytearray(boundary, 'ascii')
+    value, options = http.parse_options_header(content_type)
+    return b'--' + options['boundary'].encode('ascii')
