@@ -54,8 +54,7 @@ def parse_multipart(reader, boundary):
 
 
 def yield_until(reader, delim, size=65536):
-    chunk = _peek(reader, 2 * size)
-    while chunk:
+    for chunk in iter(lambda: _peek(reader, 2 * size), b''):
         index = chunk.find(delim)
         if index == -1:
             end = min(len(chunk), size)
@@ -67,7 +66,6 @@ def yield_until(reader, delim, size=65536):
                 yield chunk[size:index]
             reader.read(index)
             break
-        chunk = _peek(reader, 2 * size)
 
 
 def _peek(reader, size):
