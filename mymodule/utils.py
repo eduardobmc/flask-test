@@ -18,8 +18,7 @@ def read_headers(reader):
         name, value = line.decode('ascii').split(': ')
         name = name.lower()
         if name == 'content-disposition':
-            for k, v in options(value):
-                headers[k] = v
+            headers.update(options(value))
         else:
             headers[name] = value
     return headers
