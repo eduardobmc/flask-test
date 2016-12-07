@@ -43,10 +43,9 @@ def parse_multipart(reader, boundary):
         headers = read_headers(reader)
         reader.read(2 * len(CRLF))
 
-        part = yield_until(reader, CRLF + boundary)
+        part = yield_until(reader, CRLF + boundary, skip=True)
         yield headers, part
 
-        reader.read(len(CRLF + boundary))
         end = reader.peek()
         if len(end) == 0 or end == b'--' + CRLF:
             break
