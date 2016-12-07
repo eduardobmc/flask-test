@@ -31,18 +31,15 @@ def options(value):
 
 def read_until_part(reader):
     delim = CRLF * 2
-    data = read_until(reader, delim)
+    data = read_until(reader, delim, skip=True)
     return data
 
 
 def parse_multipart(reader, boundary):
-    read_until(reader, boundary)
-    reader.read(len(boundary))
+    read_until(reader, boundary, skip=True)
 
     while True:
         headers = read_headers(reader)
-        reader.read(2 * len(CRLF))
-
         part = yield_until(reader, CRLF + boundary, skip=True)
         yield headers, part
 
