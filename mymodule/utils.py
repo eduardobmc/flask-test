@@ -6,8 +6,8 @@ from werkzeug import http
 CRLF = b'\r\n'
 
 
-def read_until(reader, delim):
-    chunks = yield_until(reader, delim)
+def read_until(reader, delim, skip=False):
+    chunks = yield_until(reader, delim, skip=skip)
     return b''.join(chunks)
 
 

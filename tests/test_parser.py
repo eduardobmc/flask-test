@@ -63,6 +63,11 @@ class ReadUntilTest(unittest.TestCase):
         self.assertEquals(utils.read_until(self.reader, b'xyz'), b'abcdefgh')
         self.assertEquals(self.reader.read(), b'')
 
+    def test_skip(self):
+        data = utils.read_until(self.reader, b'efg', skip=True)
+        self.assertEquals(data, b'abcd')
+        self.assertEquals(self.reader.read(), b'h')
+
 
 class ParserTest(unittest.TestCase):
     def test_headers(self):
