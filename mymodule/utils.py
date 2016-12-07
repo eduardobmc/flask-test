@@ -6,8 +6,8 @@ from werkzeug import http
 CRLF = b'\r\n'
 
 
-def read_until(reader, delim):
-    chunks = yield_until(reader, delim)
+def read_until(reader, delim, skip=False):
+    chunks = yield_until(reader, delim, skip=skip)
     return b''.join(chunks)
 
 
@@ -31,28 +31,24 @@ def options(value):
 
 def read_until_part(reader):
     delim = CRLF * 2
-    data = read_until(reader, delim)
+    data = read_until(reader, delim, skip=True)
     return data
 
 
 def parse_multipart(reader, boundary):
-    read_until(reader, boundary)
-    reader.read(len(boundary))
+    read_until(reader, boundary, skip=True)
 
     while True:
         headers = read_headers(reader)
-        reader.read(2 * len(CRLF))
-
-        part = yield_until(reader, CRLF + boundary)
+        part = yield_until(reader, CRLF + boundary, skip=True)
         yield headers, part
 
-        reader.read(len(CRLF + boundary))
         end = reader.peek()
         if len(end) == 0 or end == b'--' + CRLF:
             break
 
 
-def yield_until(reader, delim, size=65536):
+def yield_until(reader, delim, size=65536, skip=False):
     for chunk in iter(lambda: _peek(reader, 2 * size), b''):
         index = chunk.find(delim)
         if index == -1:
@@ -63,7 +59,7 @@ def yield_until(reader, delim, size=65536):
             yield chunk[:min(index, size)]
             if size < index:
                 yield chunk[size:index]
-            reader.read(index)
+            reader.read(index + len(delim) if skip else index)
             break
 
 

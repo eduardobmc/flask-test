@@ -1,5 +1,4 @@
 import io
-import pytest
 import unittest
 
 from mymodule import utils
@@ -11,7 +10,6 @@ class YieldUntilTest(unittest.TestCase):
         stream = io.BytesIO(content)
         self.reader = io.BufferedReader(stream)
 
-    @pytest.mark.parse
     def test_yield_until(self):
         iterator = utils.yield_until(self.reader, b'6|7', size=4)
         self.assertEquals(next(iterator), b'012|')
@@ -19,7 +17,6 @@ class YieldUntilTest(unittest.TestCase):
         self.assertRaises(StopIteration, next, iterator)
         self.assertEquals(self.reader.read(), b'6|789|ab')
 
-    @pytest.mark.parse
     def test_yield_size(self):
         iterator = utils.yield_until(self.reader, b'9|a', size=4)
         self.assertEquals(next(iterator), b'012|')
@@ -28,7 +25,6 @@ class YieldUntilTest(unittest.TestCase):
         self.assertRaises(StopIteration, next, iterator)
         self.assertEquals(self.reader.read(), b'9|ab')
 
-    @pytest.mark.parse
     def test_yield_upper_half(self):
         iterator = utils.yield_until(self.reader, b'56', size=4)
         self.assertEquals(next(iterator), b'012|')
@@ -36,7 +32,6 @@ class YieldUntilTest(unittest.TestCase):
         self.assertRaises(StopIteration, next, iterator)
         self.assertEquals(self.reader.read(), b'56|789|ab')
 
-    @pytest.mark.parse
     def test_yield_not_found(self):
         iterator = utils.yield_until(self.reader, b'xyz', size=4)
         self.assertEquals(next(iterator), b'012|')
@@ -44,6 +39,14 @@ class YieldUntilTest(unittest.TestCase):
         self.assertEquals(next(iterator), b'789|')
         self.assertEquals(next(iterator), b'ab')
         self.assertRaises(StopIteration, next, iterator)
+
+    def test_skip(self):
+        iterator = utils.yield_until(self.reader, b'9|', size=4, skip=True)
+        self.assertEquals(next(iterator), b'012|')
+        self.assertEquals(next(iterator), b'456|')
+        self.assertEquals(next(iterator), b'78')
+        self.assertRaises(StopIteration, next, iterator)
+        self.assertEquals(self.reader.read(), b'ab')
 
 
 class ReadUntilTest(unittest.TestCase):
@@ -59,6 +62,11 @@ class ReadUntilTest(unittest.TestCase):
     def test_read_until_not_found(self):
         self.assertEquals(utils.read_until(self.reader, b'xyz'), b'abcdefgh')
         self.assertEquals(self.reader.read(), b'')
+
+    def test_skip(self):
+        data = utils.read_until(self.reader, b'efg', skip=True)
+        self.assertEquals(data, b'abcd')
+        self.assertEquals(self.reader.read(), b'h')
 
 
 class ParserTest(unittest.TestCase):
