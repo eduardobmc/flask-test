@@ -3,8 +3,10 @@
 __pycache__
 .cache/
 .coverage
+.sonar/
 .tox/
 htmlcov-*/
 *.egg-info/
 dist/
 build/
+*.xml
