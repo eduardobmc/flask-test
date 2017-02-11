@@ -17,7 +17,7 @@ install:
 env:
   - secure: "KK2H138WNxaWZitF0Nu2Ndb/xWAEeYJcsKEokXPUBujy8v1/jNDzDIfnP0W1AcipQeY6PkITCqmS0I5JHb2dZu3gRG91CAkU5hC8D1Td6HEBWp35ihQjG9EyH3m2whlLXD30Nim8fFMMaeVZxSy2RFf5iTRybjdtoTLKaPXGGvK1OPsplyKEOw8uN1vWF/AH+ZImbprVLvTNLKghucpOTa5nY5GNiHGWBVoL5JPn+cluI2f8wwmT9paN02Hw05t7JNyCmTetMkIAWhcHKH/QiR2LeHUdKhxgrhy1Q8q6dYMDYer/ucqVXCEQPDh+IFpgMobz+KmYU4wNavurSDuGBfThhn2qdI1iZlNwnMKxXWMDxnzLBd+EchAO/OV6prDtxpX6xi+8X+6iGl7VwekcMhf0synq6CTIWlg9aqLJEtsEpqs/lZNs9ZYORx2T9SQYc1zPgrt50jKkh1eVfGZN5TscSa20aHb7xVusJJjcpIm9aO2yaqmpn9O3yfBBnm2Rdj8hSpu6+j1EOzXhExOnluPlXY1jglJ7h5J6vRkJXtEjRPEN0IYVRcjr+drD43ML8zd2uwkvjjt0MpplTy9jYJRj5VT6m/zujtxv+0fyMXAs7561pID+pjffrHmxBiEuouLAQRtl662QM9DfYnEvMdPYs8OnxHBDjzVWmC1pDU4="
 script:
-  - sonar-scanner
   - tox -e py$(echo $TRAVIS_PYTHON_VERSION | tr -d .)
+  - sonar-scanner
 after_success:
   - codeclimate-test-reporter
