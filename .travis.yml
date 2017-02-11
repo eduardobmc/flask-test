@@ -4,9 +4,9 @@ python:
   - 2.7
   - 3.5
 addons:
-  branches:
-    - .*
   sonarqube:
+    branches:
+      - .*
     token:
       secure: "Thc5LaHc/10sDSP+kETD8IjtMRw4roiyjiMbfZlosebGp+O/KUF6EJ/6oy2bgoAEcJSRYQo6FqxzrY0s3gQJ/5N6gIMZzpVVpp8+YwvVcURbJ/uLPHGuR5zamPicYDZ2VG5evUixqhjsksagnLkasHfLJQG1if2Shd+skZAePOzuqxovt945S089bWDNl1BojESmd0Ejf+lTxU25FvWfGRxdx26EcfBYB5XOZ1kn7c0TotjuMcjUTslxecIK4dDPUfT/zT/Xx2n/zHmcBt0C+IFJ0I/LkEw+nTrzRoVx0E8zaStd9ae38AEauDjmqpTTBYcLexD0ytb4lG4g22y1hMDV/fNuU8fzb+q6UBLc9ZfxJKa4X0wjMfUk0kZP79tOiNwwJs4h/3XIaSII7E74jwQuTbL4F8uzv0fmAeCAUbEFEGsdR+7tBUtQpI/4j9rwa30ShW2V8RKZcPjY4Gg2PCkgUHP3cy9EUv1svhqRCMRLYwFlCxRTMNjw1L5461w8nl9JN+7RVNzfr1H43k8oqP7IMCNTNpm42IwGVZADYfUXNTY1pjw7on56D5zpvZ5yMUHopDqEa86FXtko+NvseiogbMbCCYGM4Fs/NBqd0FnHsbcPyPhy1CbDqi6CWSulXnIkUccV4NNFE6eodk/wiusnoRO6dXkIFEDYMUNmm5c="
 install:
