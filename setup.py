@@ -1,11 +1,15 @@
 from setuptools import setup, find_packages
 
+
 setup(
   name='mymodule',
-  version='1.0',
+  use_scm_version=True,
+  setup_requires=[
+    'setuptools_scm',
+  ],
   packages=find_packages(exclude=['tests']),
   install_requires=[
     'flask==0.12',
-    'six'
+    'six==1.10.0',
   ],
 )
