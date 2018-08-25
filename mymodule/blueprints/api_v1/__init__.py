@@ -21,5 +21,6 @@ for rule, pkg in [
     ('/crud', crud),
 ]:
     cls = pkg.View
-    view_func = cls.as_view(pkg.__name__)
+    name = pkg.__name__.split('.')[-1]
+    view_func = cls.as_view(name)
     blueprint.add_url_rule(rule, view_func=view_func, methods=cls.methods)
