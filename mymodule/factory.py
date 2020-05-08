@@ -1,4 +1,5 @@
 import flask
+from werkzeug.exceptions import NotFound
 from werkzeug.exceptions import BadRequest
 from werkzeug.exceptions import BadRequestKeyError
 from .blueprints import api_v1
@@ -7,10 +8,16 @@ from .blueprints import api_v1
 def create_app():
     app = flask.Flask(__name__)
     app.register_blueprint(api_v1.blueprint)
+    app.register_error_handler(NotFound, _not_found)
     app.register_error_handler(BadRequest, _bad_request)
     app.register_error_handler(BadRequestKeyError, _missing_parameter)
     app.register_error_handler(Exception, _exception_handler)
     return app
+
+
+def _not_found(e):
+    message = 'resource not found'
+    return flask.jsonify(error=message), e.code
 
 
 def _missing_parameter(e):

@@ -1,16 +1,9 @@
-dist: trusty
+dist: bionic
 language: python
 python:
   - 2.7
-  - 3.5
+  - 3.8
 addons:
-  sonarqube:
-    branches:
-      - .*
-    token:
-      secure: "Thc5LaHc/10sDSP+kETD8IjtMRw4roiyjiMbfZlosebGp+O/KUF6EJ/6oy2bgoAEcJSRYQo6FqxzrY0s3gQJ/5N6gIMZzpVVpp8+YwvVcURbJ/uLPHGuR5zamPicYDZ2VG5evUixqhjsksagnLkasHfLJQG1if2Shd+skZAePOzuqxovt945S089bWDNl1BojESmd0Ejf+lTxU25FvWfGRxdx26EcfBYB5XOZ1kn7c0TotjuMcjUTslxecIK4dDPUfT/zT/Xx2n/zHmcBt0C+IFJ0I/LkEw+nTrzRoVx0E8zaStd9ae38AEauDjmqpTTBYcLexD0ytb4lG4g22y1hMDV/fNuU8fzb+q6UBLc9ZfxJKa4X0wjMfUk0kZP79tOiNwwJs4h/3XIaSII7E74jwQuTbL4F8uzv0fmAeCAUbEFEGsdR+7tBUtQpI/4j9rwa30ShW2V8RKZcPjY4Gg2PCkgUHP3cy9EUv1svhqRCMRLYwFlCxRTMNjw1L5461w8nl9JN+7RVNzfr1H43k8oqP7IMCNTNpm42IwGVZADYfUXNTY1pjw7on56D5zpvZ5yMUHopDqEa86FXtko+NvseiogbMbCCYGM4Fs/NBqd0FnHsbcPyPhy1CbDqi6CWSulXnIkUccV4NNFE6eodk/wiusnoRO6dXkIFEDYMUNmm5c="
-    github_token:
-      secure: "mtdu77QA9byK4xItFVr4CjZ3tR3anNOzAntFS1V0m7KOuX7+MPGEMvM6xFJgFsVw6T1OkbQm9J6Jvtzi2Drd0iJIjwLuLGAtuHB0GTTCqEsa1xe79pDS4RTr4x5P3EaiXZK30pG5Q+JDbKHsEK7GOAwYhJmF5Na7vN9zj7UBrMKwyo8VbaysHf8fKBdajsmvEBjx/mZMSvhG7Q+fyxBY55sUR8tq7tgMSbLKITH1UuSsAYXS2apZb6tgpleBkksgB3MrdEqQXoIpRGKDSDM1YUrJ4G7/YBFsk7QZb1oA0VEKM9s6zk8/qlhK7kCobOHSyhMDzL6GxgL6YGzTtWZNT76Am3X/o+lTGAbP3lHSEDdmOp6UnOBWK5zc96pg44FfVQfbXiDgmaqCcfG3vRkE6olFoNE5EOXguNyaEH+7GNeHiJsSIDPVZMZZR7xOeXffUz6lxvdiJkQlXB/qUkp4VxVGCoKrTgjWAPS2Ek1ap4JvxCC96AxbP1V0W2+8gsB0uZpQv7/1jCtd9NFV6aA9ICL3ZkeHWEaffn8gCOjmgJh7wVOvfWX0Vrl+Fq2wSk1mCeHhOaS04Y5w6EvyqsH4I39IrWRA4OiAIroIpMUWBVhjawEf0QvadjRokJh/L5ZElyFUEgPMlELu4++I81m3+5fsi98E02CnN6HCAGqZg88="
 install:
   - pip install tox
   - pip install codeclimate-test-reporter
@@ -18,6 +11,5 @@ env:
   - secure: "KK2H138WNxaWZitF0Nu2Ndb/xWAEeYJcsKEokXPUBujy8v1/jNDzDIfnP0W1AcipQeY6PkITCqmS0I5JHb2dZu3gRG91CAkU5hC8D1Td6HEBWp35ihQjG9EyH3m2whlLXD30Nim8fFMMaeVZxSy2RFf5iTRybjdtoTLKaPXGGvK1OPsplyKEOw8uN1vWF/AH+ZImbprVLvTNLKghucpOTa5nY5GNiHGWBVoL5JPn+cluI2f8wwmT9paN02Hw05t7JNyCmTetMkIAWhcHKH/QiR2LeHUdKhxgrhy1Q8q6dYMDYer/ucqVXCEQPDh+IFpgMobz+KmYU4wNavurSDuGBfThhn2qdI1iZlNwnMKxXWMDxnzLBd+EchAO/OV6prDtxpX6xi+8X+6iGl7VwekcMhf0synq6CTIWlg9aqLJEtsEpqs/lZNs9ZYORx2T9SQYc1zPgrt50jKkh1eVfGZN5TscSa20aHb7xVusJJjcpIm9aO2yaqmpn9O3yfBBnm2Rdj8hSpu6+j1EOzXhExOnluPlXY1jglJ7h5J6vRkJXtEjRPEN0IYVRcjr+drD43ML8zd2uwkvjjt0MpplTy9jYJRj5VT6m/zujtxv+0fyMXAs7561pID+pjffrHmxBiEuouLAQRtl662QM9DfYnEvMdPYs8OnxHBDjzVWmC1pDU4="
 script:
   - tox -e py$(echo $TRAVIS_PYTHON_VERSION | tr -d .)
-  - sonar-scanner
 after_success:
   - codeclimate-test-reporter
