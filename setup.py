@@ -5,6 +5,7 @@ setup(
   name='mymodule',
   use_scm_version=True,
   setup_requires=[
+    'wheel',
     'setuptools_scm',
   ],
   packages=find_packages(exclude=['tests']),
